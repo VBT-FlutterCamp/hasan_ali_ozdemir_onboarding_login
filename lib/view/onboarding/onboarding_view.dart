@@ -72,66 +72,14 @@ class _OnBoardingPageState extends State<OnBoardingPage>
                   ),
                   Expanded(
                     flex: 3,
-                    child: FadeTransition(
-                      opacity: animation,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                        child: Wrap(
-                          children: [
-                            Text(
-                              onboardingDescList[_currentIndex],
-                              maxLines: 3,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(height: 2,letterSpacing: 2),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                    child: _buildDesc(animation),
                   ),
                   const Spacer(
                     flex: 1,
                   ),
                   Expanded(
                       flex: 2,
-                      child: Row(
-                        children: [const Spacer(flex: 1,),
-                          Expanded(
-                            flex: 3,
-                            child: InkWell(
-                              onTap: onPressedColoredButton,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius: BorderRadius.circular(8)
-                                ),
-                                child: Center(child: Text(skip,
-                                style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
-                                )),
-                              ),
-                            ),
-                          ),
-                          const Spacer(flex: 1,),
-                          Expanded(
-                            flex: 3,
-                            child: InkWell(
-                              onTap: onPressedColoredButton,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: Colors.deepPurple
-                                ),
-                                child: Center(child: Text((_currentIndex!=2)? "Continue" : "Finish",
-                                style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
-                                )),
-                              ),
-                            ),
-                          ),
-                          const Spacer(flex: 1,)
-                        ],
-                      )),
+                      child: _buildButtons()),
                   const Spacer(
                     flex: 2,
                   ),
@@ -141,6 +89,66 @@ class _OnBoardingPageState extends State<OnBoardingPage>
             ))
       ],
     );
+  }
+
+  FadeTransition _buildDesc(animation) {
+    return FadeTransition(
+                    opacity: animation,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                      child: Wrap(
+                        children: [
+                          Text(
+                            onboardingDescList[_currentIndex],
+                            maxLines: 3,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(height: 2,letterSpacing: 2),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+  }
+
+  Row _buildButtons() {
+    return Row(
+                      children: [const Spacer(flex: 1,),
+                        Expanded(
+                          flex: 3,
+                          child: InkWell(
+                            onTap: onPressedSkipButton,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.circular(8)
+                              ),
+                              child: Center(child: Text(skip,
+                              style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
+                              )),
+                            ),
+                          ),
+                        ),
+                        const Spacer(flex: 1,),
+                        Expanded(
+                          flex: 3,
+                          child: InkWell(
+                            onTap: onPressedColoredButton,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Colors.deepPurple
+                              ),
+                              child: Center(child: Text((_currentIndex!=2)? "Continue" : "Finish",
+                              style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
+                              )),
+                            ),
+                          ),
+                        ),
+                        const Spacer(flex: 1,)
+                      ],
+                    );
   }
 
   FadeTransition _buildTitle(animation) => FadeTransition(
