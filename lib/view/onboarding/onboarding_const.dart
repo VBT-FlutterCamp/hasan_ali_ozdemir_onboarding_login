@@ -7,14 +7,14 @@ const List<String> onboardingAssetList = [
 ];
 
 const List<String> onboardingTitleList = [
-  "Title1",
-  "Title2",
-  "Title3",
+  "Lorem Ipsum",
+  "Dolor Sit Amet",
+  "Nulla Porttitor !",
 ];
 
 const List<String> onboardingDescList = [
-  "Title1Title1Title1Title1Title1Tititle1Tiitle1Title1Title1Tititle1Title1Title1Tititle1Title1Title1Tiitle1Tititle1Title1Title1Tititle1Title1Title1Title1Title1Title1Title1",
-  "TitlTitle1TitTitle1Title1le1Title1Title1Title1Title1Title1e2",
-  "TitlTitle1Title1Title1Title1Title1Title1Title1Title1Title1Title1e3",
+  "Praesent at quam tempor dolor condimentum convallis. Fusce tincidunt lorem non pharetra convallis.",
+  "Ut vel metus in urna auctor viverra eget et lorem. Nulla facilisi. Vestibulum maximus finibus orci in eleifend.",
+  "Phasellus rutrum neque dictum, tincidunt sem vestibulum, facilisis turpis. Vivamus ligula risus, facilisis maximus tellus et, hendrerit consequat purus.",
 ];
 String skip = "Skip";
