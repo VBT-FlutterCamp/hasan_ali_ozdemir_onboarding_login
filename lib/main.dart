@@ -18,6 +18,9 @@ class MyApp extends StatelessWidget {
         '/auth': (BuildContext context) => AuthPage(),
       },
       title: 'Flutter Demo',
+      theme: ThemeData(
+        primaryColor: Colors.deepPurple
+      ),
       debugShowCheckedModeBanner: false,
       home: OnBoardingPage()
     );
