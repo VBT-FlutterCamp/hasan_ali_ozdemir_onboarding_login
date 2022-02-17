@@ -15,24 +15,36 @@ class _OnBoardingPageState extends State<OnBoardingPage>
     with TickerProviderStateMixin {
   int _currentIndex = 0;
 
+  late Animation _tweenAnimation;
+  late AnimationController _fadeController;  
+
+  @override
+  void initState() {
+    _fadeController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+    _tweenAnimation = Tween(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(_fadeController);
+    _fadeController.forward();
+    super.initState();
+  }
+
+  @override
+  void dispose() { 
+    _fadeController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final controller = AnimationController(
-      vsync: this,
-      duration: Duration(seconds: 2),
-    );
-
-    final animation = Tween(
-      begin: 0.2,
-      end: 1.0,
-    ).animate(controller);
-
-    controller.forward();
     return Scaffold(body: PageView.builder(itemBuilder: (context, index) {
       return Stack(
         children: [
-          _buildImageColumn(animation),
-          _buildStepsColumn(animation, controller)
+          _buildImageColumn(_tweenAnimation),
+          _buildStepsColumn(_tweenAnimation, _fadeController)
         ],
       );
     }));
@@ -234,12 +246,13 @@ class _OnBoardingPageState extends State<OnBoardingPage>
     );
   }
 
-  onPressedColoredButton(AnimationController controller) {
-    controller.reverse();
+  onPressedColoredButton(AnimationController controller) async{
+    await controller.reverse();
     if (_currentIndex < 2) {
       setState(() {
         _currentIndex++;
       });
+      controller.forward();
     } else {
       Navigator.pushNamedAndRemoveUntil(context, "/auth", (route) => false);
     }
