@@ -23,18 +23,22 @@ class _OnBoardingPageState extends State<OnBoardingPage>
     );
 
     final animation = Tween(
-      begin: 0.0,
+      begin: 0.2,
       end: 1.0,
     ).animate(controller);
 
     controller.forward();
-    return Scaffold(
-        body: Stack(
-      children: [_buildImageColumn(animation), _buildStepsColumn(animation)],
-    ));
+    return Scaffold(body: PageView.builder(itemBuilder: (context, index) {
+      return Stack(
+        children: [
+          _buildImageColumn(animation),
+          _buildStepsColumn(animation, controller)
+        ],
+      );
+    }));
   }
 
-  Column _buildStepsColumn(animation) {
+  Column _buildStepsColumn(animation, controller) {
     return Column(
       children: [
         const Spacer(
@@ -77,13 +81,10 @@ class _OnBoardingPageState extends State<OnBoardingPage>
                   const Spacer(
                     flex: 1,
                   ),
-                  Expanded(
-                      flex: 2,
-                      child: _buildButtons()),
+                  Expanded(flex: 2, child: _buildButtons(controller)),
                   const Spacer(
                     flex: 2,
                   ),
-                  
                 ],
               ),
             ))
@@ -93,71 +94,89 @@ class _OnBoardingPageState extends State<OnBoardingPage>
 
   FadeTransition _buildDesc(animation) {
     return FadeTransition(
-                    opacity: animation,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                      child: Wrap(
-                        children: [
-                          Text(
-                            onboardingDescList[_currentIndex],
-                            maxLines: 3,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(height: 2,letterSpacing: 2),
-                          )
-                        ],
-                      ),
-                    ),
-                  );
+      opacity: animation,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 40.0),
+        child: Wrap(
+          alignment: WrapAlignment.center,
+          children: [
+            Text(
+              onboardingDescList[_currentIndex],
+              textAlign: TextAlign.center,
+              maxLines: 3,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge
+                  ?.copyWith(height: 2, letterSpacing: 2),
+            )
+          ],
+        ),
+      ),
+    );
   }
 
-  Row _buildButtons() {
+  Row _buildButtons(controller) {
     return Row(
-                      children: [const Spacer(flex: 1,),
-                        Expanded(
-                          flex: 3,
-                          child: InkWell(
-                            onTap: onPressedSkipButton,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius: BorderRadius.circular(8)
-                              ),
-                              child: Center(child: Text(skip,
-                              style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
-                              )),
-                            ),
-                          ),
-                        ),
-                        const Spacer(flex: 1,),
-                        Expanded(
-                          flex: 3,
-                          child: InkWell(
-                            onTap: onPressedColoredButton,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: Colors.deepPurple
-                              ),
-                              child: Center(child: Text((_currentIndex!=2)? "Continue" : "Finish",
-                              style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
-                              )),
-                            ),
-                          ),
-                        ),
-                        const Spacer(flex: 1,)
-                      ],
-                    );
+      children: [
+        const Spacer(
+          flex: 1,
+        ),
+        Expanded(
+          flex: 3,
+          child: InkWell(
+            onTap: onPressedSkipButton,
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.grey, borderRadius: BorderRadius.circular(8)),
+              child: Center(
+                  child: Text(
+                skip,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6
+                    ?.copyWith(color: Colors.white),
+              )),
+            ),
+          ),
+        ),
+        const Spacer(
+          flex: 1,
+        ),
+        Expanded(
+          flex: 3,
+          child: InkWell(
+            onTap: () => onPressedColoredButton(controller),
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.deepPurple),
+              child: Center(
+                  child: Text(
+                (_currentIndex != 2) ? "Continue" : "Finish",
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6
+                    ?.copyWith(color: Colors.white),
+              )),
+            ),
+          ),
+        ),
+        const Spacer(
+          flex: 1,
+        )
+      ],
+    );
   }
 
   FadeTransition _buildTitle(animation) => FadeTransition(
       opacity: animation,
-      child: Text(onboardingTitleList[_currentIndex],
-          style: Theme.of(context)
-              .textTheme
-              .headline4
-              ?.copyWith(fontWeight: FontWeight.bold, color: Colors.black)));
+      child: FittedBox(
+        child: Text(onboardingTitleList[_currentIndex],
+            style: Theme.of(context)
+                .textTheme
+                .headline4
+                ?.copyWith(fontWeight: FontWeight.bold, color: Colors.black)),
+      ));
 
   Row _buildCircles() {
     return Row(
@@ -215,8 +234,9 @@ class _OnBoardingPageState extends State<OnBoardingPage>
     );
   }
 
-  onPressedColoredButton() {
-    if (_currentIndex <2) {
+  onPressedColoredButton(AnimationController controller) {
+    controller.reverse();
+    if (_currentIndex < 2) {
       setState(() {
         _currentIndex++;
       });
@@ -225,7 +245,7 @@ class _OnBoardingPageState extends State<OnBoardingPage>
     }
   }
 
-  onPressedSkipButton(){
+  onPressedSkipButton() {
     Navigator.pushNamedAndRemoveUntil(context, "/auth", (route) => false);
   }
 }
