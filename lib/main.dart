@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onboarding_app/view/auth/auth_view.dart';
+import 'package:onboarding_app/view/auth/forgot_password_page.dart';
 import 'package:onboarding_app/view/onboarding/onboarding_view.dart';
 
 void main() {
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/onBoarding': (BuildContext context) => OnBoardingPage(),
         '/auth': (BuildContext context) => AuthPage(),
+        '/forgotPassword': (BuildContext context) => ForgotPasswordPage(),
       },
       title: 'Flutter Demo',
       theme: ThemeData(
