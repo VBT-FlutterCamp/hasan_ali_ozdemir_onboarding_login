@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:onboarding_app/view/onboarding/onboarding_const.dart';
@@ -14,6 +12,7 @@ class OnBoardingPage extends StatefulWidget {
 class _OnBoardingPageState extends State<OnBoardingPage>
     with TickerProviderStateMixin {
   int _currentIndex = 0;
+  final int _flexMinValue = 1;
 
   late Animation _tweenAnimation;
   late AnimationController _fadeController;  
@@ -73,25 +72,25 @@ class _OnBoardingPageState extends State<OnBoardingPage>
                   color: Colors.white),
               child: Column(
                 children: [
-                  const Spacer(
-                    flex: 1,
+                  Spacer(
+                    flex: _flexMinValue,
                   ),
-                  Expanded(flex: 1, child: _buildCircles()),
-                  const Spacer(
-                    flex: 1,
+                  Expanded(flex: _flexMinValue, child: _buildCircles()),
+                  Spacer(
+                    flex: _flexMinValue,
                   ),
                   Expanded(
                     child: _buildTitle(animation),
                   ),
-                  const Spacer(
-                    flex: 1,
+                  Spacer(
+                    flex: _flexMinValue,
                   ),
                   Expanded(
                     flex: 3,
                     child: _buildDesc(animation),
                   ),
-                  const Spacer(
-                    flex: 1,
+                  Spacer(
+                    flex: _flexMinValue,
                   ),
                   Expanded(flex: 2, child: _buildButtons(controller)),
                   const Spacer(

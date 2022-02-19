@@ -16,8 +16,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         '/onBoarding': (BuildContext context) => OnBoardingPage(),
-        '/auth': (BuildContext context) => AuthPage(),
-        '/forgotPassword': (BuildContext context) => ForgotPasswordPage(),
+        '/auth': (BuildContext context) => const  AuthPage(),
+        '/forgotPassword': (BuildContext context) => const ForgotPasswordPage(),
       },
       title: 'Flutter Demo',
       theme: ThemeData(

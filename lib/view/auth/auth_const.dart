@@ -15,5 +15,5 @@ String convertToLogin = "Already have an account?";
 String convertToRegisterButton = "Create";
 String convertToLoginButton = "Login";
 
-Icon secureIcon = Icon(Icons.visibility_off);
-Icon nonsecureIcon = Icon(Icons.visibility);
+Icon secureIcon = const Icon(Icons.visibility_off);
+Icon nonsecureIcon = const  Icon(Icons.visibility);
